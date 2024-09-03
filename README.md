@@ -1,6 +1,6 @@
 # Release Information
 
-- **Version**: 1.0.0
+- **Version**: 1.0.1
 
 - **Certified**: Yes
 
@@ -9,6 +9,8 @@
 - **Compatibility**: 7.4.3 and later
 
 - **Applicable**: View Panel
+
+- [**Release Notes**](./widget/release_notes.md)
 
 # Overview
 
