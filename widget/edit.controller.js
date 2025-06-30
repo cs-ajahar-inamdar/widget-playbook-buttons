@@ -1,16 +1,16 @@
 /* Copyright start
   MIT License
-  Copyright (c) 2024 Fortinet Inc
+  Copyright (c) 2025 Fortinet Inc
   Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('editPlaybookButtons101Ctrl', editPlaybookButtons101Ctrl);
+    .controller('editPlaybookButtons110Ctrl', editPlaybookButtons110Ctrl);
 
-  editPlaybookButtons101Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'FormEntityService', 'currentPermissionsService', 'playbookService', '_'];
+  editPlaybookButtons110Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'FormEntityService', 'currentPermissionsService', 'playbookService', '_'];
 
-  function editPlaybookButtons101Ctrl($scope, $uibModalInstance, config, FormEntityService, currentPermissionsService, playbookService, _) {
+  function editPlaybookButtons110Ctrl($scope, $uibModalInstance, config, FormEntityService, currentPermissionsService, playbookService, _) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;

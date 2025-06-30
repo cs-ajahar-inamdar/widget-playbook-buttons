@@ -1,18 +1,17 @@
 /* Copyright start
   MIT License
-  Copyright (c) 2024 Fortinet Inc
+  Copyright (c) 2025 Fortinet Inc
   Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('playbookButtons101Ctrl', playbookButtons101Ctrl);
+    .controller('playbookButtons110Ctrl', playbookButtons110Ctrl);
 
-  playbookButtons101Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource', 'widgetBasePath'];
+  playbookButtons110Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource', 'widgetBasePath'];
 
-  function playbookButtons101Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource, widgetBasePath) {
+  function playbookButtons110Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource, widgetBasePath) {
     $scope.actionButtonPlaybooks = [];
-    $scope.recordPlaybooks = [];
     $scope.widgetBasePath = widgetBasePath;
     $scope.widgetCSS = widgetBasePath + 'widgetAssets/playbookButtons.css';
     $scope.$on('formGroup:fieldChange', function (event, entity) {
@@ -28,19 +27,21 @@
       playbookService.detachPaybookStatusWebsocket($scope.playbookStatusSubscription);
     });
 
-    function renderActionButtons(entity) {
-      $scope.playbookRecords = [];
-      $scope.recordPlaybooks = [];
-      playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
-        $scope.recordPlaybooks = _.filter(playbooks, item => item._hide === false);
-        $scope.recordPlaybooks = _.map($scope.recordPlaybooks, selectedPlaybook => {
-          var matchingPlaybook = _.find($scope.config.selectedPlaybooksWithRecord, item => item['@id'] === selectedPlaybook['@id']);
-          if (matchingPlaybook) {
-            $scope.playbookRecords.push(_.assign({}, selectedPlaybook, { icon: matchingPlaybook.icon }));
-          }
-        });
-        if ($scope.playbookRecords) {
-          createPlaybookButtons($scope.playbookRecords);
+    function renderActionButtons() {
+      let playbookRecords = [];
+      let actionPlaybookList = [];
+      let playbookIDs = _.pluck($scope.config.selectedPlaybooksWithRecord, 'uuid');
+      playbookService.getPlaybooksData(playbookIDs, ['name']).then(function (results) {
+        playbookRecords = results['hydra:member'];
+        if(playbookRecords.length > 0) {
+          angular.forEach(playbookRecords, function(playbookRecord) {
+            angular.forEach($scope.config.selectedPlaybooksWithRecord, function(playbookConfig) {
+              if(playbookConfig.uuid === playbookRecord.uuid) {
+                actionPlaybookList.push(playbookConfig);
+              }
+            });
+          });
+          createPlaybookButtons(actionPlaybookList);
         }
       });
     }
