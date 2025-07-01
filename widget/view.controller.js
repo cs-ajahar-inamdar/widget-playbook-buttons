@@ -28,13 +28,11 @@
     });
 
     function renderActionButtons() {
-      let playbookRecords = [];
       let actionPlaybookList = [];
       let playbookIDs = _.pluck($scope.config.selectedPlaybooksWithRecord, 'uuid');
       playbookService.getPlaybooksData(playbookIDs, ['name']).then(function (results) {
-        playbookRecords = results['hydra:member'];
-        if(playbookRecords.length > 0) {
-          angular.forEach(playbookRecords, function(playbookRecord) {
+        if(results && results['hydra:member'] && results['hydra:member'].length > 0) {
+          angular.forEach(results['hydra:member'], function(playbookRecord) {
             angular.forEach($scope.config.selectedPlaybooksWithRecord, function(playbookConfig) {
               if(playbookConfig.uuid === playbookRecord.uuid) {
                 actionPlaybookList.push(playbookConfig);
