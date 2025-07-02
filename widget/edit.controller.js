@@ -23,6 +23,7 @@
     $scope.resetExecutionProgress = resetExecutionProgress;
     $scope.toggleAdvancedSettings = toggleAdvancedSettings;
     $scope.searchTemplate = searchTemplate;
+    let playbookButtonList = [];
     $scope.input = {
       searchText: ''
     };
@@ -44,6 +45,14 @@
       }
     }
 
+    function updatePlaybookList(playbook) {
+      angular.forEach($scope.modulePlaybooks, function(playbookDetails, index){
+        if(playbook.uuid === playbookDetails.uuid) {
+          $scope.modulePlaybooks.splice(index, 1);
+        }
+      });
+    }
+
     function addButtonWithRecord(playbook) {
       let playbookDetail = {
         name: playbook.name,
@@ -51,11 +60,20 @@
         actionTriggerName: playbook.actionTriggerName, 
         collectionName: playbook.collectionName
       };
+      playbookButtonList.push(playbook);
+      updatePlaybookList(playbook);
       $scope.config.selectedPlaybooksWithRecord.push(playbookDetail);
       $scope.playbookList.push(playbook);
     }
 
     function removeButtonWithRecord(index, action) {
+      angular.forEach(playbookButtonList, function(playbookDetail, index){
+        if(action.uuid === playbookDetail.uuid) {
+          updatePlaybookList(playbookDetail);
+          $scope.modulePlaybooks.push(playbookDetail);
+          playbookButtonList.splice(index, 1);
+        }
+      });
       $scope.config.selectedPlaybooksWithRecord.splice(index, 1);
       $scope.config.selectedExecutionWizardPlaybooks = _.reject($scope.config.selectedExecutionWizardPlaybooks, obj => obj.id === action.id);
     }
