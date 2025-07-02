@@ -47,7 +47,9 @@
     function addButtonWithRecord(playbook) {
       let playbookDetail = {
         name: playbook.name,
-        uuid: playbook.uuid
+        uuid: playbook.uuid,
+        actionTriggerName: playbook.actionTriggerName, 
+        collectionName: playbook.collectionName
       };
       $scope.config.selectedPlaybooksWithRecord.push(playbookDetail);
       $scope.playbookList.push(playbook);
