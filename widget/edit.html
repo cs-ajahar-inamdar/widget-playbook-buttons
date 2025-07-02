@@ -1,6 +1,6 @@
 <!-- Copyright start
   MIT License
-  Copyright (c) 2025 Fortinet Inc
+  Copyright (c) 2024 Fortinet Inc
   Copyright end -->
 <form data-ng-submit="save()" class="noMargin" name="editPlaybookButtonsForm" novalidate>
   <div class="modal-header">
@@ -25,27 +25,13 @@
                     <span data-uib-tooltip="Select playbook which tou want to render and execute from record view panel"
                       data-tooltip-append-to-body="true"><i class="margin-left-sm icon icon-information font-Size-13">
                       </i></span>
-                      <div class="btn-group cd-dropdown" uib-dropdown>
-                        <button class="form-control input-sm truncate" uib-dropdown-toggle type="button" data-toggle="dropdown" data-ng-required="true" id="select_playbooks_with_record">Select a Playbook
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
-                          <li class="primary-div" data-ng-if="modulePlaybooks.length > 5" >
-                            <div class="input-group search-style margin-0 padding-0 margin-left-sm margin-right-sm">
-                              <input type="text" class="form-control filter-height-style font-style-normal" data-ng-click="searchTemplate($event)" data-ng-model="input.searchText" placeholder="Search Playbook" aria-labelledby="search-btn" name="search-input">
-                              <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default filter-height-style" aria-label="Search" id="submit-search-field">
-                                  <span class="icon icon-search"></span>
-                                </button>
-                              </span>
-                            </div>
-                          </li>
-                          <li data-ng-repeat="playbook in modulePlaybooks | filter: { 'name' : input.searchText}" class="primary-div">
-                            <a title="{{ playbook.name }}" href="#" data-ng-click="addButtonWithRecord(playbook)">
-                              <span class="truncate white-space-nowrap template-list-style width-70">{{ playbook.name }}</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <select name="select_playbooks_with_record" id="select_playbooks_with_record" class="form-control"
+                      data-ng-model="withoutRecordnewPlaybook"
+                      data-ng-options="playbook.name for playbook in modulePlaybooks"
+                      data-ng-change="addButtonWithRecord(withoutRecordnewPlaybook)"
+                      data-ng-required="config.selectedPlaybooksWithRecord.length === 0">
+                      <option value="">Select a Playbook</option>
+                    </select>
                   </div>
                 </div>
               </div>
