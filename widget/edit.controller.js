@@ -69,7 +69,6 @@
     function removeButtonWithRecord(index, action) {
       angular.forEach(playbookButtonList, function(playbookDetail, index){
         if(action.uuid === playbookDetail.uuid) {
-          updatePlaybookList(playbookDetail);
           $scope.modulePlaybooks.push(playbookDetail);
           playbookButtonList.splice(index, 1);
         }

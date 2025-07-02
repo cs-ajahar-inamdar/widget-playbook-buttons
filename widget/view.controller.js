@@ -8,9 +8,9 @@
     .module('cybersponse')
     .controller('playbookButtons110Ctrl', playbookButtons110Ctrl);
 
-  playbookButtons110Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource', 'widgetBasePath'];
+  playbookButtons110Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource', 'widgetBasePath', 'toaster'];
 
-  function playbookButtons110Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource, widgetBasePath) {
+  function playbookButtons110Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource, widgetBasePath, toaster) {
     $scope.actionButtonPlaybooks = [];
     $scope.widgetBasePath = widgetBasePath;
     $scope.widgetCSS = widgetBasePath + 'widgetAssets/playbookButtons.css';
@@ -43,7 +43,15 @@
             });
           });
           createPlaybookButtons(actionPlaybookList);
+        }else {
+          toaster.error({
+            body: 'No results found'
+          })
         }
+      }, function(){
+        toaster.error({
+          body: 'No results found'
+        })
       });
     }
 
