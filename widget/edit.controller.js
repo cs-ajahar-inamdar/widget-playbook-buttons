@@ -96,6 +96,10 @@
       $scope.entity = FormEntityService.get();
       playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
         $scope.modulePlaybooks = playbooks;
+        playbookButtonList = angular.copy($scope.config.selectedPlaybooksWithRecord);
+        angular.forEach($scope.config.selectedPlaybooksWithRecord, function(playbook) {
+          updatePlaybookList(playbook);
+        });
       });
     }
     function searchTemplate(event){
