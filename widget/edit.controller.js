@@ -1,16 +1,16 @@
 /* Copyright start
   MIT License
-  Copyright (c) 2025 Fortinet Inc
+  Copyright (c) 2024 Fortinet Inc
   Copyright end */
 'use strict';
 (function () {
   angular
     .module('cybersponse')
-    .controller('editPlaybookButtons110Ctrl', editPlaybookButtons110Ctrl);
+    .controller('editPlaybookButtons101Ctrl', editPlaybookButtons101Ctrl);
 
-  editPlaybookButtons110Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'FormEntityService', 'currentPermissionsService', 'playbookService', '_'];
+  editPlaybookButtons101Ctrl.$inject = ['$scope', '$uibModalInstance', 'config', 'FormEntityService', 'currentPermissionsService', 'playbookService', '_'];
 
-  function editPlaybookButtons110Ctrl($scope, $uibModalInstance, config, FormEntityService, currentPermissionsService, playbookService, _) {
+  function editPlaybookButtons101Ctrl($scope, $uibModalInstance, config, FormEntityService, currentPermissionsService, playbookService, _) {
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
@@ -22,11 +22,6 @@
     $scope.removeButtonWithRecord = removeButtonWithRecord;
     $scope.resetExecutionProgress = resetExecutionProgress;
     $scope.toggleAdvancedSettings = toggleAdvancedSettings;
-    $scope.searchTemplate = searchTemplate;
-    let playbookButtonList = [];
-    $scope.input = {
-      searchText: ''
-    };
     if (!$scope.config.selectedPlaybooksWithRecord) {
       $scope.config.selectedPlaybooksWithRecord = [];
     }
@@ -45,34 +40,12 @@
       }
     }
 
-    function updatePlaybookList(playbook) {
-      angular.forEach($scope.modulePlaybooks, function(playbookDetails, index){
-        if(playbook.uuid === playbookDetails.uuid) {
-          $scope.modulePlaybooks.splice(index, 1);
-        }
-      });
-    }
-
     function addButtonWithRecord(playbook) {
-      let playbookDetail = {
-        name: playbook.name,
-        uuid: playbook.uuid,
-        actionTriggerName: playbook.actionTriggerName, 
-        collectionName: playbook.collectionName
-      };
-      playbookButtonList.push(playbook);
-      updatePlaybookList(playbook);
-      $scope.config.selectedPlaybooksWithRecord.push(playbookDetail);
+      $scope.config.selectedPlaybooksWithRecord.push(playbook);
       $scope.playbookList.push(playbook);
     }
 
     function removeButtonWithRecord(index, action) {
-      angular.forEach(playbookButtonList, function(playbookDetail, index){
-        if(action.uuid === playbookDetail.uuid) {
-          $scope.modulePlaybooks.push(playbookDetail);
-          playbookButtonList.splice(index, 1);
-        }
-      });
       $scope.config.selectedPlaybooksWithRecord.splice(index, 1);
       $scope.config.selectedExecutionWizardPlaybooks = _.reject($scope.config.selectedExecutionWizardPlaybooks, obj => obj.id === action.id);
     }
@@ -95,15 +68,8 @@
       $scope.entity = FormEntityService.get();
       playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
         $scope.modulePlaybooks = playbooks;
-        playbookButtonList = angular.copy($scope.config.selectedPlaybooksWithRecord);
-        angular.forEach($scope.config.selectedPlaybooksWithRecord, function(playbook) {
-          updatePlaybookList(playbook);
-        });
       });
-    }
-    function searchTemplate(event){
-      event.preventDefault();
-      event.stopPropagation();
+
     }
     _init();
   }
