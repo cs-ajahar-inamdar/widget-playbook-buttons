@@ -22,6 +22,10 @@
     $scope.removeButtonWithRecord = removeButtonWithRecord;
     $scope.resetExecutionProgress = resetExecutionProgress;
     $scope.toggleAdvancedSettings = toggleAdvancedSettings;
+    $scope.searchTemplate = searchTemplate;
+    $scope.input = {
+      searchText: ''
+    };
     if (!$scope.config.selectedPlaybooksWithRecord) {
       $scope.config.selectedPlaybooksWithRecord = [];
     }
@@ -41,7 +45,11 @@
     }
 
     function addButtonWithRecord(playbook) {
-      $scope.config.selectedPlaybooksWithRecord.push(playbook);
+      let playbookDetail = {
+        name: playbook.name,
+        uuid: playbook.uuid
+      };
+      $scope.config.selectedPlaybooksWithRecord.push(playbookDetail);
       $scope.playbookList.push(playbook);
     }
 
@@ -69,7 +77,10 @@
       playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
         $scope.modulePlaybooks = playbooks;
       });
-
+    }
+    function searchTemplate(event){
+      event.preventDefault();
+      event.stopPropagation();
     }
     _init();
   }
