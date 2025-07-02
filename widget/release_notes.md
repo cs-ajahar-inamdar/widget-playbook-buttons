@@ -2,4 +2,4 @@
 
 ## Minor Bug Fixes
 
-- Code optimization.
+- Optimized the code for improved performance and added search functionality in the dropdown to enable quick and efficient playbook search.
