@@ -44,15 +44,11 @@
             });
           });
           createPlaybookButtons(actionPlaybookList);
-        }else {
-          toaster.error({
-            body: 'No results found'
-          })
         }
       }, function(){
         toaster.error({
           body: 'No results found'
-        })
+        });
       });
     }
 
