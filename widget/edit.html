@@ -39,7 +39,7 @@
                               </span>
                             </div>
                           </li>
-                          <li data-ng-repeat="playbook in modulePlaybooks | filter: { 'name' : input.searchText}" class="primary-div">
+                          <li data-ng-repeat="playbook in modulePlaybooks | filter: { 'name' : input.searchText} | orderBy:'name'" class="primary-div">
                             <a title="{{ playbook.name }}" href="#" data-ng-click="addButtonWithRecord(playbook)">
                               <span class="truncate white-space-nowrap template-list-style width-70">{{ playbook.name }}</span>
                             </a>
@@ -68,8 +68,8 @@
               </div>
             </div>
           </div>
-          <div class="mertics-widget-border padding-top-md padding-bottom-md"></div>
-          <div class="checkbox-inline margin-top-18">
+          <div class="mertics-widget-border padding-top-md padding-bottom-md" data-ng-if="config.selectedPlaybooksWithRecord.length > 0"></div>
+          <div class="checkbox-inline margin-top-18" data-ng-if="config.selectedPlaybooksWithRecord.length > 0">
             <label for="showExecutionProgress" class="control-label">
               <input id="showExecutionProgress" type="checkbox" name="showExecutionProgress"
                 data-ng-model="config.showExecutionProgress" data-ng-click="resetExecutionProgress()">
@@ -81,7 +81,7 @@
               data-tooltip-append-to-body="true"><i class="margin-left-sm icon icon-information font-Size-13">
               </i></span>
           </div>
-          <div data-ng-if="config.showExecutionProgress">
+          <div data-ng-if="config.showExecutionProgress" data-ng-if="config.selectedPlaybooksWithRecord.length > 0">
             <div class="form-group margin-left-18"
               data-ng-class="{ 'has-error': editPlaybookButtonsForm.select_playbooks.$invalid && editPlaybookButtonsForm.select_playbooks.$touched }">
               <label class="control-label">Playbook included list</label>
