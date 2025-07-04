@@ -74,7 +74,7 @@
         }
       });
       $scope.config.selectedPlaybooksWithRecord.splice(index, 1);
-      $scope.config.selectedExecutionWizardPlaybooks = _.reject($scope.config.selectedExecutionWizardPlaybooks, obj => obj.id === action.id);
+      $scope.config.selectedExecutionWizardPlaybooks = _.reject($scope.config.selectedExecutionWizardPlaybooks, obj => obj.uuid === action.uuid);
     }
     function cancel() {
       $uibModalInstance.dismiss('cancel');
