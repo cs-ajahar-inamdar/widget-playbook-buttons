@@ -39,7 +39,7 @@
                               </span>
                             </div>
                           </li>
-                          <li data-ng-repeat="playbook in modulePlaybooks | filter: { 'name' : input.searchText}" class="primary-div">
+                          <li data-ng-repeat="playbook in modulePlaybooks | filter: { 'name' : input.searchText} | orderBy:'name'" class="primary-div">
                             <a title="{{ playbook.name }}" href="#" data-ng-click="addButtonWithRecord(playbook)">
                               <span class="truncate white-space-nowrap template-list-style width-70">{{ playbook.name }}</span>
                             </a>
