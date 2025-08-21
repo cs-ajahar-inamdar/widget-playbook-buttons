@@ -42,10 +42,9 @@
                 var triggerStep = playbookService.getTriggerStep(playbookRecord);
                 if(!angular.isUndefined(triggerStep)) {
                   if (triggerStep.arguments.displayConditions && ($scope.entity.id || rows.length > 0) && !triggerStep.arguments.noRecordExecution) {
-                    playbookRecord._hide = false;
                     var displayConditions = new Query(triggerStep.arguments.displayConditions[$scope.entity.module]);
                     var result = $scope.entity.evaluate(displayConditions);
-                    playbookRecord._hide = !result;
+                    playbookRecord._hide = !result || false;
                   }
                 }
                 actionPlaybookList.push(playbookRecord);
